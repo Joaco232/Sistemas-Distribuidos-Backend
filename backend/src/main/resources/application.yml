@@ -1,5 +1,6 @@
 spring:
 
+
   servlet:
     multipart:
       max-file-size: 5MB
@@ -26,3 +27,12 @@ server:
 
 jwt:
     secret: laclavesecreta345346g45y245H$th34H&$H%&H$%yh345y234ty4YHG$%Hsdfjmwguiwh4#%345rgh4g#%YGH#$%H$%H45hw4h
+
+
+movienow:
+
+  api:
+
+    url: https://api.themoviedb.org/3
+    key: ${MOVIENOW_API_KEY:63eb8176e16fea085c5f5bd32708b0ec}
+    token: ${MOVIENOW_API_TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2M2ViODE3NmUxNmZlYTA4NWM1ZjViZDMyNzA4YjBlYyIsIm5iZiI6MTc2MDM5NDY0Ni42MjEsInN1YiI6IjY4ZWQ3ZDk2NzY3Y2E3ZmM3MTI4MjczZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UWkzk5J2_A7OuaoADcwYGc_E9azDsYOZ9QW3Cz-dneA}

@@ -32,11 +32,6 @@ public class AddUserDTO {
     @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s'\\-]*$", message = "El nombre solo puede contener letras y espacios.")
     private String name;
 
-    @NotNull(message = "El apellido no puede ser nulo.")
-    @Size(min = 1, max = 50, message = "El apellido debe contener entre 1 y 50 caracteres.")
-    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s'\\-]*$", message = "El apellido solo puede contener letras y espacios.")
-    private String surname;
-
     @NotNull(message = "La fecha de nacimiento no puede ser nula.")
     @Past(message = "La fecha de nacimiento debe estar en pasado.")
     private LocalDate birthDate;
