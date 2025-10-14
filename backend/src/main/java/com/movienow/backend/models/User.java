@@ -49,12 +49,6 @@ public class User {
     @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s'\\-]*$", message = "El nombre solo puede contener letras y espacios.")
     private String name;
 
-    @Column(name = "SURNAME", nullable = false, length = 50)
-    @NotNull(message = "El apellido no puede ser nulo.")
-    @Size(min = 1, max = 50, message = "El apellido debe contener entre 1 y 50 caracteres.")
-    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s'\\-]*$", message = "El apellido solo puede contener letras y espacios.")
-    private String surname;
-
     @Column(name = "PROFILE_PHOTO", length = 254)
     @Size(max = 254, message = "La ruta de la foto de perfil no puede superar 254 caracteres.")
     private String profilePhoto;

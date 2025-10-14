@@ -17,7 +17,6 @@ public class UserMapper {
 
         return User.builder()
                 .name(userDTO.getName())
-                .surname(userDTO.getSurname())
                 .platformsSubscribed(userDTO.getPlatformsSubscribed())
                 .favoriteGenres(userDTO.getFavoriteGenres())
                 .email(userDTO.getEmail())

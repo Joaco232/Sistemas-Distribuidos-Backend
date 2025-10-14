@@ -118,6 +118,14 @@ public class Movie {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @ManyToMany
+    @JoinTable(
+            name = "MOVIE_PLATFORM",
+            joinColumns = @JoinColumn(name = "MOVIE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PLATFORM_ID")
+    )
+    private List<Platform> platforms = new ArrayList<>();
+
 
 
 

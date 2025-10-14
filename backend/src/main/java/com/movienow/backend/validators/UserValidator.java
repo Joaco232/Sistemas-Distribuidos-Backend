@@ -13,7 +13,7 @@ import java.time.Period;
 @RequiredArgsConstructor
 public class UserValidator {
 
-    private static final int MINIMUM_AGE = 18;
+    private static final int MINIMUM_AGE = 13;
     private final UserRepository userRepository;
 
 
