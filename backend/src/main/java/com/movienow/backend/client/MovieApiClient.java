@@ -1,6 +1,7 @@
 package com.movienow.backend.client;
 
 
+import com.movienow.backend.dtos.movie.MovieSearchPageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class MovieApiClient {
     private String apiToken;
 
 
-    public String searchMovieByName(String name) {
+    public MovieSearchPageDTO searchMovieByName(String name) {
         String url = UriComponentsBuilder
                 .fromUriString(baseUrl + "/search/movie")
                 .queryParam("api_key", apiKey)
@@ -31,7 +32,7 @@ public class MovieApiClient {
                 .encode()
                 .toUriString();
 
-        return restTemplate.getForObject(url, String.class);
+        return restTemplate.getForObject(url, MovieSearchPageDTO.class);
     }
 
 

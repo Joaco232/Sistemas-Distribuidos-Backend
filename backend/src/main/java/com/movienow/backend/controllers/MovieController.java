@@ -1,5 +1,6 @@
 package com.movienow.backend.controllers;
 
+import com.movienow.backend.dtos.movie.MovieSearchPageDTO;
 import com.movienow.backend.services.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public class MovieController {
 
 
     @GetMapping("/name/search")
-    public ResponseEntity<String> getMovieByName(@RequestParam String name) {
+    public ResponseEntity<MovieSearchPageDTO> getMovieByName(@RequestParam String name) {
 
         return ResponseEntity.ok(movieService.findMovieByQuery(name));
     }
