@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.lang.management.PlatformManagedObject;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
 package com.movienow.backend.services;
 
 import com.movienow.backend.client.MovieApiClient;
+import com.movienow.backend.dtos.movie.MovieSearchPageDTO;
 import com.movienow.backend.models.Movie;
 import com.movienow.backend.repositories.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ public class MovieService {
     private final MovieApiClient movieApiClient;
 
 
-    public String findMovieByQuery(String query) {
+    public MovieSearchPageDTO findMovieByQuery(String query) {
 
         return movieApiClient.searchMovieByName(query);
     }
