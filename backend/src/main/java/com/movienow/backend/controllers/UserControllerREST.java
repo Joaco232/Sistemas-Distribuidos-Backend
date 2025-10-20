@@ -36,7 +36,7 @@ public class UserControllerREST {
         return apiResponseMapper.makeResponseEntity(HttpStatus.OK,"Usuario registrado exitosamente.");
     }
 
-    @PreAuthorize("isAuthenticated()")
+
     @PatchMapping("/password")
     public ResponseEntity<ApiResponse> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
 

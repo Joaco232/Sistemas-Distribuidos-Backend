@@ -41,7 +41,7 @@ public class UserService {
     @Transactional
     public void changePassword(ChangePasswordDTO changePasswordDTO, User user) {
 
-        userValidator.validatePasswordMatches(changePasswordDTO.getCurrentPassword(), changePasswordDTO.getNewPassword());
+        userValidator.validatePasswordMatches(changePasswordDTO.getNewPassword(),changePasswordDTO.getCurrentPassword());
 
         String encodedNewPassword = passwordEncoder.encode(changePasswordDTO.getNewPassword());
         user.setPassword(encodedNewPassword);
