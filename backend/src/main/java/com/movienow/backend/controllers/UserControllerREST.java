@@ -4,6 +4,7 @@ package com.movienow.backend.controllers;
 import com.movienow.backend.dtos.ApiResponse;
 import com.movienow.backend.dtos.user.AddUserDTO;
 import com.movienow.backend.dtos.user.ChangePasswordDTO;
+import com.movienow.backend.dtos.user.UserProfileDTO;
 import com.movienow.backend.mappers.ApiResponseMapper;
 import com.movienow.backend.mappers.UserMapper;
 import com.movienow.backend.models.User;
@@ -38,7 +39,8 @@ public class UserControllerREST {
 
 
     @PatchMapping("/password")
-    public ResponseEntity<ApiResponse> changePassword(@Valid @RequestBody ChangePasswordDTO changePasswordDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    public ResponseEntity<ApiResponse> changePassword(
+            @Valid @RequestBody ChangePasswordDTO changePasswordDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         User activeUser = userService.getUserById(userDetails.getId());
 
@@ -48,6 +50,24 @@ public class UserControllerREST {
     }
 
 
+    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<UserProfileDTO> getCurrentUser(
+            @AuthenticationPrincipal com.movienow.backend.security.CustomUserDetails userDetails) {
+
+
+        User user = userService.getUserById(userDetails.getId());
+        UserProfileDTO userProfileDTO = UserProfileDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .birthDate(user.getBirthDate())
+                .platformsSubscribed(user.getPlatformsSubscribed())
+                .favoriteGenres(user.getFavoriteGenres())
+                .build();
+
+        return ResponseEntity.ok(userProfileDTO);
+    }
 
 
 
