@@ -5,6 +5,7 @@ import com.movienow.backend.exceptions.user.UnderAgeUserException;
 import com.movienow.backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -15,6 +16,7 @@ public class UserValidator {
 
     private static final int MINIMUM_AGE = 13;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     public void validateUserAge(LocalDate birthDate) {
@@ -32,9 +34,10 @@ public class UserValidator {
         }
     }
 
+    public void validatePasswordMatches(String newPassword, String currentPassword) {
 
-
-
-
-
+        if(!passwordEncoder.matches(currentPassword, newPassword)) {
+            throw new IllegalArgumentException("La contraseña no coincide con la anterior");
+        }
+    }
 }
