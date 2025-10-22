@@ -11,12 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserProfileDTO {
+
     private Long id;
     private String email;
     private String name;
     private LocalDate birthDate;
     private List<String> platformsSubscribed;
     private List<String> favoriteGenres;
-
 
 }
