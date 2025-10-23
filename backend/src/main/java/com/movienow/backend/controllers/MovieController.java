@@ -15,9 +15,12 @@ public class MovieController {
 
 
     @GetMapping("/name/search")
-    public ResponseEntity<MovieSearchPageDTO> getMovieByName(@RequestParam String name) {
+    public ResponseEntity<MovieSearchPageDTO> getMovieByName(@RequestParam String name,
+                                                             @RequestParam(defaultValue = "1") Integer page,
+                                                             @RequestParam(defaultValue = "en-US") String language,
+                                                             @RequestParam(defaultValue = "false") Boolean include_adult) {
 
-        return ResponseEntity.ok(movieService.findMovieByQuery(name));
+        return ResponseEntity.ok(movieService.findMovieByQuery(name, page, language, include_adult));
     }
 
 

@@ -53,20 +53,11 @@ public class UserControllerREST {
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UserProfileDTO> getCurrentUser(
-            @AuthenticationPrincipal com.movienow.backend.security.CustomUserDetails userDetails) {
-
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         User user = userService.getUserById(userDetails.getId());
-        UserProfileDTO userProfileDTO = UserProfileDTO.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .name(user.getName())
-                .birthDate(user.getBirthDate())
-                .platformsSubscribed(user.getPlatformsSubscribed())
-                .favoriteGenres(user.getFavoriteGenres())
-                .build();
 
-        return ResponseEntity.ok(userProfileDTO);
+        return ResponseEntity.ok(userMapper.toUserProfileDTO(user));
     }
 
 

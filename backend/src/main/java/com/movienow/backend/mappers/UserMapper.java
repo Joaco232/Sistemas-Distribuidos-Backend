@@ -2,6 +2,7 @@ package com.movienow.backend.mappers;
 
 import com.movienow.backend.dtos.user.AddUserDTO;
 import com.movienow.backend.dtos.user.UserDetailsDTO;
+import com.movienow.backend.dtos.user.UserProfileDTO;
 import com.movienow.backend.models.User;
 import org.springframework.stereotype.Component;
 
@@ -39,4 +40,24 @@ public class UserMapper {
                 .password(user.getPassword())
                 .build();
     }
+
+
+
+    public UserProfileDTO toUserProfileDTO(User user) {
+
+        if (user == null) {
+            return null;
+        }
+
+        return UserProfileDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .birthDate(user.getBirthDate())
+                .platformsSubscribed(user.getPlatformsSubscribed())
+                .favoriteGenres(user.getFavoriteGenres())
+                .build();
+    }
+
+
 }

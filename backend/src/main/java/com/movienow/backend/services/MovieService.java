@@ -15,9 +15,9 @@ public class MovieService {
     private final MovieApiClient movieApiClient;
 
 
-    public MovieSearchPageDTO findMovieByQuery(String query) {
+    public MovieSearchPageDTO findMovieByQuery(String query, Integer page, String language, Boolean include_adult) {
 
-        return movieApiClient.searchMovieByName(query);
+        return movieApiClient.searchMovieByName(query, page, language, include_adult);
     }
 
 

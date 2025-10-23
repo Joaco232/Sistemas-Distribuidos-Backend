@@ -24,11 +24,14 @@ public class MovieApiClient {
     private String apiToken;
 
 
-    public MovieSearchPageDTO searchMovieByName(String name) {
+    public MovieSearchPageDTO searchMovieByName(String name, Integer page, String language, Boolean include_adult) {
         String url = UriComponentsBuilder
                 .fromUriString(baseUrl + "/search/movie")
                 .queryParam("api_key", apiKey)
                 .queryParam("query", name)
+                .queryParam("page", page)
+                .queryParam("language", language)
+                .queryParam("include_adult", include_adult)
                 .encode()
                 .toUriString();
 
