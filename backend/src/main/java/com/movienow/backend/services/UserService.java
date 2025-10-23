@@ -1,6 +1,7 @@
 package com.movienow.backend.services;
 
 import com.movienow.backend.dtos.user.AddUserDTO;
+import com.movienow.backend.dtos.user.ChangeNameDTO;
 import com.movienow.backend.dtos.user.ChangePasswordDTO;
 import com.movienow.backend.exceptions.user.EmailAlreadyExistsException;
 import com.movienow.backend.exceptions.user.UnderAgeUserException;
@@ -45,6 +46,14 @@ public class UserService {
 
         String encodedNewPassword = passwordEncoder.encode(changePasswordDTO.getNewPassword());
         user.setPassword(encodedNewPassword);
+        userRepository.save(user);
+
+    }
+
+    @Transactional
+    public void changeName(ChangeNameDTO changeNameDTO, User user) {
+
+        user.setName(changeNameDTO.getNewName());
         userRepository.save(user);
 
     }

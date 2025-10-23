@@ -3,6 +3,7 @@ package com.movienow.backend.controllers;
 
 import com.movienow.backend.dtos.ApiResponse;
 import com.movienow.backend.dtos.user.AddUserDTO;
+import com.movienow.backend.dtos.user.ChangeNameDTO;
 import com.movienow.backend.dtos.user.ChangePasswordDTO;
 import com.movienow.backend.dtos.user.UserProfileDTO;
 import com.movienow.backend.mappers.ApiResponseMapper;
@@ -49,6 +50,15 @@ public class UserControllerREST {
 
     }
 
+    @PatchMapping("/name")
+    public ResponseEntity<ApiResponse> changeName(@Valid @RequestBody ChangeNameDTO changeNameDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        User activeUser = userService.getUserById(userDetails.getId());
+        userService.changeName(changeNameDTO, activeUser);
+        return apiResponseMapper.makeResponseEntity(HttpStatus.OK, "Nombre de usuario actualizado con exito.");
+
+    }
+
+
 
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
@@ -59,6 +69,7 @@ public class UserControllerREST {
 
         return ResponseEntity.ok(userMapper.toUserProfileDTO(user));
     }
+
 
 
 
