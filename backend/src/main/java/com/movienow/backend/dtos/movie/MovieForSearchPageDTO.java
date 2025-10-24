@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieSearchPageDTO {
+public class MovieForSearchPageDTO {
 
     private Integer page;
 

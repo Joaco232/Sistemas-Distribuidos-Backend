@@ -12,10 +12,4 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     public Optional<Movie> findMovieById(Long id);
 
-    public Optional<Movie> findMovieByTitle(String title);
-
-    public boolean existsByTitle(String title);
-
-    public List<Movie> findAllByGenresContaining(String genre);
-
 }

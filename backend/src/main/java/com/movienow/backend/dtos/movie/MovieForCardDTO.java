@@ -22,6 +22,8 @@ public class MovieForCardDTO {
     private String overview;
     private String release_date;
     private String title;
+    private List<String> genres;
+    private List<String> platforms;
 
 
 

@@ -1,6 +1,8 @@
 package com.movienow.backend.controllers;
 
-import com.movienow.backend.dtos.movie.MovieSearchPageDTO;
+import com.movienow.backend.dtos.movie.MovieDetailsDTO;
+import com.movienow.backend.dtos.movie.MovieForCardPageDTO;
+import com.movienow.backend.dtos.movie.MovieForSearchPageDTO;
 import com.movienow.backend.services.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +17,25 @@ public class MovieController {
 
 
     @GetMapping("/name/search")
-    public ResponseEntity<MovieSearchPageDTO> getMovieByName(@RequestParam String name,
-                                                             @RequestParam(defaultValue = "1") Integer page,
-                                                             @RequestParam(defaultValue = "en-US") String language,
-                                                             @RequestParam(defaultValue = "false") Boolean include_adult) {
+    public ResponseEntity<MovieForCardPageDTO> getMovieByName(@RequestParam String name,
+                                                              @RequestParam(defaultValue = "1") Integer page,
+                                                              @RequestParam(defaultValue = "es-MX") String language,
+                                                              @RequestParam(defaultValue = "false") Boolean include_adult) {
 
-        return ResponseEntity.ok(movieService.findMovieByQuery(name, page, language, include_adult));
+        MovieForCardPageDTO movieForCardPageDTO = movieService.findMovieByQuery(name, page, language, include_adult, "UY");
+
+        return ResponseEntity.ok(movieForCardPageDTO);
+    }
+
+
+
+
+
+    @GetMapping("/id/search")
+    public ResponseEntity<MovieDetailsDTO> getMovieDetailsById(@RequestParam Integer id,
+                                                               @RequestParam(defaultValue = "es") String language) {
+
+        return ResponseEntity.ok(movieService.findMovieDetailsById(id, language));
     }
 
 
