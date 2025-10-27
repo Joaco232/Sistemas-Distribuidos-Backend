@@ -19,6 +19,10 @@ public class ProviderService {
     private final ProviderMapper providerMapper;
     private final ProviderRepository providerRepository;
 
+    private static final String TMDB_BASE_URL = "https://image.tmdb.org/t/p/";
+    private static final String DEFAULT_SIZE = "w300";
+
+
     public void saveProvidersFrom() {
 
         ProvidersListDTO providersListDTO = movieApiClient.getAllMovieProviders("es", "UY");
@@ -33,7 +37,32 @@ public class ProviderService {
 
     }
 
+    public List<Provider> getAllPlatforms() {
+        List<Provider> providers = providerRepository.findAll();
+
+        return providers.stream()
+            .map(provider -> {
+                String logoPath = provider.getLogoUrl();
+
+                if (logoPath != null && !logoPath.isEmpty()) {
+                    String cleanPath = logoPath;
+                    if (logoPath.startsWith("/")) {
+                        cleanPath = logoPath.substring(1);
+                    }
+                    String fullUrl = TMDB_BASE_URL + DEFAULT_SIZE + "/" + cleanPath;
+                    provider.setLogoUrl(fullUrl);
+                }
+
+                return provider;
+            })
+            .toList();
+    }
+
 
 
 
 }
+
+
+
+
