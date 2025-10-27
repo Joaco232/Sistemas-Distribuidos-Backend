@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 @Component
 public class ProviderMapper {
 
-
     public Provider toEntity(ProvidersListDTO.WatchProviderDTO watchProviderDTO) {
 
         if (watchProviderDTO == null) {
@@ -25,7 +24,6 @@ public class ProviderMapper {
                 .logoUrl(watchProviderDTO.getLogo_path())
                 .build();
     }
-
 
 
     public List<String> extractProviderName(ProvidersByMovieDTO providersByMovieDTO, String countryCode) {
@@ -46,6 +44,8 @@ public class ProviderMapper {
                 )
                 .orElse(List.of());
     }
+
+
 
 
 }
