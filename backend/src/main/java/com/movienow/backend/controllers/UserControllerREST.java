@@ -2,10 +2,7 @@ package com.movienow.backend.controllers;
 
 
 import com.movienow.backend.dtos.ApiResponse;
-import com.movienow.backend.dtos.user.AddUserDTO;
-import com.movienow.backend.dtos.user.ChangeNameDTO;
-import com.movienow.backend.dtos.user.ChangePasswordDTO;
-import com.movienow.backend.dtos.user.UserProfileDTO;
+import com.movienow.backend.dtos.user.*;
 import com.movienow.backend.mappers.ApiResponseMapper;
 import com.movienow.backend.mappers.UserMapper;
 import com.movienow.backend.models.User;
@@ -14,6 +11,7 @@ import com.movienow.backend.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -68,6 +66,18 @@ public class UserControllerREST {
         User user = userService.getUserById(userDetails.getId());
 
         return ResponseEntity.ok(userMapper.toUserProfileDTO(user));
+    }
+
+
+    @PutMapping("/platforms")
+    public ResponseEntity<ApiResponse> AddAllMyProviders(@AuthenticationPrincipal CustomUserDetails userDetails,
+    @Valid @RequestBody AddMyProvidersDTO userPlatforms){
+
+        User user = userService.getUserById(userDetails.getId());
+        userService.addAllMyProviders(userPlatforms, user);
+
+        return apiResponseMapper.makeResponseEntity(HttpStatus.OK, "Plataformas actualizadas con exito");
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.movienow.backend.dtos.user;
 // UserProfileDTO.java
 
+import com.movienow.backend.models.Provider;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class UserProfileDTO {
     private String email;
     private String name;
     private LocalDate birthDate;
-    private List<String> platformsSubscribed;
+    private List<Provider> platformsSubscribed;
     private List<String> favoriteGenres;
 
 }
