@@ -45,6 +45,10 @@ public class UserService {
         return userRepository.findUsersById(id).orElseThrow(() -> new UserNotFoundException("El usuario no existe"));
     }
 
+    public List<Provider> getUserPlatforms(User user) {
+        return user.getPlatformsSubscribed();
+    }
+
     @Transactional
     public void changePassword(ChangePasswordDTO changePasswordDTO, User user) {
 
@@ -72,6 +76,7 @@ public class UserService {
         userRepository.save(user);
 
     }
+
 
 
 

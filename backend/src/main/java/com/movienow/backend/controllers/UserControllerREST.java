@@ -5,6 +5,7 @@ import com.movienow.backend.dtos.ApiResponse;
 import com.movienow.backend.dtos.user.*;
 import com.movienow.backend.mappers.ApiResponseMapper;
 import com.movienow.backend.mappers.UserMapper;
+import com.movienow.backend.models.Provider;
 import com.movienow.backend.models.User;
 import com.movienow.backend.security.CustomUserDetails;
 import com.movienow.backend.services.UserService;
@@ -18,6 +19,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -68,6 +71,16 @@ public class UserControllerREST {
         return ResponseEntity.ok(userMapper.toUserProfileDTO(user));
     }
 
+    @GetMapping("/platforms")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<Provider>> getUserProviders(
+            @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+        User user = userService.getUserById(userDetails.getId());
+        List<Provider> providers = userService.getUserPlatforms(user);
+
+        return ResponseEntity.ok(providers);
+    }
 
     @PutMapping("/platforms")
     public ResponseEntity<ApiResponse> AddAllMyProviders(@AuthenticationPrincipal CustomUserDetails userDetails,
