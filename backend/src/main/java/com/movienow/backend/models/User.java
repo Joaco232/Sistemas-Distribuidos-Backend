@@ -59,10 +59,13 @@ public class User {
     @Past(message = "La fecha de nacimiento debe estar en pasado.")
     private LocalDate birthDate;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "USER_PLATFORMS", joinColumns = @JoinColumn(name = "USER_ID"))
-    @Column(name = "PLATFORM")
-    private List<String> platformsSubscribed = new ArrayList<>();;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "USER_POVIDERS",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PROVIDER_ID")
+    )
+    private List<Provider> platformsSubscribed = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "USER_GENRES", joinColumns = @JoinColumn(name = "USER_ID"))

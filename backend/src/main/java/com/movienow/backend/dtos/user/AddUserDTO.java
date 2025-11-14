@@ -1,6 +1,7 @@
 package com.movienow.backend.dtos.user;
 
 
+import com.movienow.backend.models.Provider;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -36,7 +37,7 @@ public class AddUserDTO {
     @Past(message = "La fecha de nacimiento debe estar en pasado.")
     private LocalDate birthDate;
 
-    private List<String> platformsSubscribed = new ArrayList<>();
+    private List<Provider> platformsSubscribed = new ArrayList<>();
 
     private List<String> favoriteGenres = new ArrayList<>();
 
