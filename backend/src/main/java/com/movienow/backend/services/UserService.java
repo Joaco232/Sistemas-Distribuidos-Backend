@@ -24,6 +24,7 @@ public class UserService {
     private final UserValidator userValidator;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserEventPublisher eventPublisher;
 
 
     public void addNewUser(@Valid AddUserDTO addUserDTO) throws UnderAgeUserException, EmailAlreadyExistsException {
@@ -32,6 +33,7 @@ public class UserService {
         userValidator.validateEmailNotExists(addUserDTO.getEmail());
 
         userRepository.save(userMapper.toEntity(addUserDTO, passwordEncoder.encode(addUserDTO.getPassword())));
+        eventPublisher.publishUserCreated(addUserDTO.getEmail());
     }
 
     public User getUserById(Long id) throws UserNotFoundException {
