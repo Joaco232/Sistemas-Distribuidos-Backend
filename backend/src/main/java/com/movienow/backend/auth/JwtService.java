@@ -9,6 +9,7 @@ import io.jsonwebtoken.Claims;
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
+import java.nio.charset.StandardCharsets;
 
 
 @Service
@@ -18,7 +19,12 @@ public class JwtService {
     private String secretKey;
 
     private Key getSignInKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+        String value = secretKey != null ? secretKey.trim() : "";
+        byte[] keyBytes = value.getBytes(StandardCharsets.UTF_8);
+        if (keyBytes.length < 32) {
+            throw new IllegalStateException("JWT secret too short: provide at least 256 bits (32 bytes). Configure 'jwt.secret' (or env JWT_SECRET) with a strong random value of length >= 32 bytes.");
+        }
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(CustomUserDetails userDetails, long expiration) {

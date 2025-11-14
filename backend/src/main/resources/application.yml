@@ -1,43 +1,45 @@
 spring:
-
-
   servlet:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
 
   datasource:
-    url: jdbc:h2:mem:movienowdb
-    driver-class-name: org.h2.Driver
-    username: admin
-    password: admin
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:movienow}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:movienow}
+    password: ${POSTGRES_PASSWORD:movienow123}
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:user}
+    password: ${SPRING_RABBITMQ_PASSWORD:user}
 
 server:
   port: 8080
 
 jwt:
-    secret: laclavesecreta345346g45y245H$th34H&$H%&H$%yh345y234ty4YHG$%Hsdfjmwguiwh4#%345rgh4g#%YGH#$%H$%H45hw4h
-
+  secret: ${JWT_SECRET:laclaveporDefectoBienLargaYSegura12345678901234567890}
+  
+  
 sendgrid:
   api-key: ${SENDGRID_API_KEY}
 
 movienow:
-
   api:
-
     url: https://api.themoviedb.org/3
     key: ${MOVIENOW_API_KEY:63eb8176e16fea085c5f5bd32708b0ec}
     token: ${MOVIENOW_API_TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2M2ViODE3NmUxNmZlYTA4NWM1ZjViZDMyNzA4YjBlYyIsIm5iZiI6MTc2MDM5NDY0Ni42MjEsInN1YiI6IjY4ZWQ3ZDk2NzY3Y2E3ZmM3MTI4MjczZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UWkzk5J2_A7OuaoADcwYGc_E9azDsYOZ9QW3Cz-dneA}
+
 
 
 # -----------------------------
@@ -61,4 +63,12 @@ management:
     enabled: false
 
 
+app:
+  rabbitmq:
+    exchange: user.exchange
+    routing-key: user.created
+    queue: user.created.queue
+
+cors:
+  allowed-origins: http://localhost:3000,http://localhost:5173,http://localhost:5174
 

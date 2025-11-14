@@ -31,6 +31,7 @@ public class UserService {
     private final UserValidator userValidator;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final UserEventPublisher eventPublisher;
     private final ProviderRepository providerRepository;
     private final EmailService emailService;
 
@@ -40,6 +41,7 @@ public class UserService {
         userValidator.validateUserAge(addUserDTO.getBirthDate());
         userValidator.validateEmailNotExists(addUserDTO.getEmail());
 
+
         User savedUser = userRepository.save(userMapper.toEntity(addUserDTO, passwordEncoder.encode(addUserDTO.getPassword())));
 
         try {
@@ -47,6 +49,8 @@ public class UserService {
         } catch (IOException e) {
             System.out.println("Error enviando mail de bienvenida: " + e.getMessage());
         }
+
+        eventPublisher.publishUserCreated(addUserDTO.getEmail());
 
     }
 

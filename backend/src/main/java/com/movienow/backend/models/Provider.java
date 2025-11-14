@@ -32,10 +32,6 @@ public class Provider {
     @Size(min = 1, max = 255, message = "El nombre debe contener entre 1 y 255 caracteres.")
     private String name;
 
-    @Column(name = "URL", length = 255)
-    @Size(min = 1, max = 255, message = "La url debe contener entre 1 y 255 caracteres.")
-    private String url;
-
     @Column(name = "LOGO_URL", length = 255)
     @Size(min = 1, max = 255, message = "La url del logo debe contener entre 1 y 255 caracteres.")
     private String logoUrl;
