@@ -1,5 +1,6 @@
 package com.movienow.backend.services;
 
+import com.movienow.backend.auth.EmailService;
 import com.movienow.backend.dtos.user.AddMyProvidersDTO;
 import com.movienow.backend.dtos.user.AddUserDTO;
 import com.movienow.backend.dtos.user.ChangeNameDTO;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -30,6 +32,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final ProviderRepository providerRepository;
+    private final EmailService emailService;
 
 
     public void addNewUser(@Valid AddUserDTO addUserDTO) throws UnderAgeUserException, EmailAlreadyExistsException {
@@ -37,7 +40,14 @@ public class UserService {
         userValidator.validateUserAge(addUserDTO.getBirthDate());
         userValidator.validateEmailNotExists(addUserDTO.getEmail());
 
-        userRepository.save(userMapper.toEntity(addUserDTO, passwordEncoder.encode(addUserDTO.getPassword())));
+        User savedUser = userRepository.save(userMapper.toEntity(addUserDTO, passwordEncoder.encode(addUserDTO.getPassword())));
+
+        try {
+            emailService.sendWelcomeEmail(savedUser.getEmail(), savedUser.getName());
+        } catch (IOException e) {
+            System.out.println("Error enviando mail de bienvenida: " + e.getMessage());
+        }
+
     }
 
     public User getUserById(Long id) throws UserNotFoundException {
