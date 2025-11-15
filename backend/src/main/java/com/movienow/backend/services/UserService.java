@@ -1,6 +1,5 @@
 package com.movienow.backend.services;
 
-import com.movienow.backend.auth.EmailService;
 import com.movienow.backend.dtos.user.AddMyProvidersDTO;
 import com.movienow.backend.dtos.user.AddUserDTO;
 import com.movienow.backend.dtos.user.ChangeNameDTO;
@@ -44,11 +43,7 @@ public class UserService {
 
         User savedUser = userRepository.save(userMapper.toEntity(addUserDTO, passwordEncoder.encode(addUserDTO.getPassword())));
 
-        try {
-            emailService.sendWelcomeEmail(savedUser.getEmail(), savedUser.getName());
-        } catch (IOException e) {
-            System.out.println("Error enviando mail de bienvenida: " + e.getMessage());
-        }
+
 
         eventPublisher.publishUserCreated(addUserDTO.getEmail());
 

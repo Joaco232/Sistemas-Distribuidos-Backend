@@ -38,9 +38,6 @@ public class SecurityConfig {
     private final UserMapper userMapper;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Value("${cors.allowed-origins:http://localhost:3000,http://localhost:5173,http://localhost:5174}")
-    private String corsAllowedOrigins;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -82,13 +79,17 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:5174", "http://localhost:3000", "http://localhost:3001")); // Ambos puertos
+
+        configuration.setAllowedOriginPatterns(List.of("*"));
+
+        // 2. El resto de la configuración es correcta:
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"));
-        configuration.setAllowedOrigins(Arrays.stream(corsAllowedOrigins.split(",")).map(String::trim).toList());
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
+
         configuration.addExposedHeader("Authorization");
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(true); // Requiere usar setAllowedOriginPatterns
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
