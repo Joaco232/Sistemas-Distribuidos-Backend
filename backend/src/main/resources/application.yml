@@ -23,6 +23,11 @@ spring:
     port: ${SPRING_RABBITMQ_PORT:5672}
     username: ${SPRING_RABBITMQ_USERNAME:user}
     password: ${SPRING_RABBITMQ_PASSWORD:user}
+    listener:
+      simple:
+        # Sin broker levantado el listener reintentaria la conexion en loop y
+        # llenaria los logs. Poner en true (o RABBITMQ_ENABLED=true) al usar RabbitMQ.
+        auto-startup: ${RABBITMQ_ENABLED:false}
 
 server:
   port: 8080
@@ -54,6 +59,11 @@ management:
   endpoint:
     health:
       show-details: always
+
+  health:
+    # Sin este flag /actuator/health devuelve DOWN al no haber broker.
+    rabbit:
+      enabled: ${RABBITMQ_ENABLED:false}
 
   metrics:
     tags:

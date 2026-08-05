@@ -1,0 +1,11 @@
+# Variables de entorno con secretos (JWT_SECRET, passwords, API keys).
+# La plantilla versionada es .env.prod.example
+.env
+.env.local
+.env.prod
+
+# Logs del deploy.sh
+log.txt
+
+# IDE
+.idea/
